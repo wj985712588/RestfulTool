@@ -1,0 +1,94 @@
+package cn.mhonor.beans;
+
+import cn.mhonor.view.icon.Icons;
+import com.intellij.psi.PsiMethod;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import javax.swing.*;
+
+/**
+ * @author mhonor
+ * @version 1.0
+ */
+public class Request {
+
+    private final PsiMethod psiMethod;
+    private HttpMethod method;
+    private String path;
+    private Icon icon;
+
+    public Request(HttpMethod method, @Nullable String path, @Nullable PsiMethod psiMethod) {
+        this.setMethod(method);
+        if (path != null) {
+            this.setPath(path);
+        }
+        this.psiMethod = psiMethod;
+    }
+
+    public PsiMethod getPsiMethod() {
+        return psiMethod;
+    }
+
+    public void navigate(boolean requestFocus) {
+        if (psiMethod != null) {
+            psiMethod.navigate(requestFocus);
+        }
+    }
+
+    public HttpMethod getMethod() {
+        return method;
+    }
+
+    public void setMethod(HttpMethod method) {
+        this.method = method;
+        this.icon = Icons.getMethodIcon(method);
+    }
+
+    public Icon getIcon() {
+        return icon;
+    }
+
+    public Icon getSelectIcon() {
+        return Icons.getMethodIcon(this.method, true);
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(@NotNull String path) {
+        path = path.trim();
+        if (!path.startsWith("/")) {
+            path = "/" + path;
+        }
+        path = path.replaceAll("//", "/");
+        this.path = path;
+    }
+
+    public void setParent(@NotNull Request parent) {
+        if (this.method == null && parent.getMethod() != null) {
+            this.setMethod(parent.getMethod());
+        }
+        String parentPath = parent.getPath();
+        if (parentPath != null && parentPath.endsWith("/")) {
+            // 去掉末尾的斜杠
+            parentPath = parentPath.substring(0, parentPath.length() - 1);
+        }
+        this.setPath(parentPath + this.path);
+    }
+
+    @NotNull
+    public Request copyWithParent(@Nullable Request parent) {
+        Request request = new Request(this.method, this.path, this.psiMethod);
+        if (parent != null) {
+            request.setParent(parent);
+        }
+        return request;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + method + "]" + path + "(" + icon + ")";
+    }
+}
