@@ -18,13 +18,13 @@ import java.util.Map;
  */
 public class DefaultIcon implements IconType {
 
-    public static final Icon REQUEST = Icons.load("/icons/method/default/Request.png");
-    public static final Icon GET = Icons.load("/icons/method/default/GET.png");
-    public static final Icon POST = Icons.load("/icons/method/default/POST.png");
-    public static final Icon DELETE = Icons.load("/icons/method/default/DELETE.png");
-    public static final Icon PUT = Icons.load("/icons/method/default/PUT.png");
-    public static final Icon PATCH = Icons.load("/icons/method/default/PATCH.png");
-    public static final Icon HEAD = Icons.load("/icons/method/default/HEAD.png");
+    public static final Icon REQUEST = Icons.load("/icons/default/Request.png");
+    public static final Icon GET = Icons.load("/icons/default/GET.png");
+    public static final Icon POST = Icons.load("/icons/default/POST.png");
+    public static final Icon DELETE = Icons.load("/icons/default/DELETE.png");
+    public static final Icon PUT = Icons.load("/icons/default/PUT.png");
+    public static final Icon PATCH = Icons.load("/icons/default/PATCH.png");
+    public static final Icon HEAD = Icons.load("/icons/default/HEAD.png");
 
     private static final Map<HttpMethod, Icon> ICONS;
 
@@ -43,12 +43,6 @@ public class DefaultIcon implements IconType {
     @Override
     public Icon getDefaultIcon(HttpMethod method) {
         return ICONS.get(method);
-    }
-
-    @NotNull
-    @Override
-    public Icon getSelectIcon(HttpMethod method) {
-        return this.getDefaultIcon(method);
     }
 
     @NotNull

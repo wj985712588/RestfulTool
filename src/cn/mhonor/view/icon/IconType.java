@@ -24,15 +24,6 @@ public interface IconType {
     Icon getDefaultIcon(HttpMethod method);
 
     /**
-     * 选中图标
-     *
-     * @param method method
-     * @return select
-     */
-    @NotNull
-    Icon getSelectIcon(HttpMethod method);
-
-    /**
      * 获取默认图标列表
      *
      * @return list

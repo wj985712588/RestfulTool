@@ -1,6 +1,5 @@
 package cn.mhonor.view.icon;
 
-import cn.mhonor.view.icon.impl.CuteIcon;
 import cn.mhonor.view.icon.impl.DefaultIcon;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -52,8 +51,7 @@ public class IconTypeManager {
     @Contract(value = " -> new", pure = true)
     public static IconType[] getIconTypes() {
         return new IconType[]{
-                IconTypeManager.getInstance(DefaultIcon.class),
-                IconTypeManager.getInstance(CuteIcon.class),
+                IconTypeManager.getInstance(DefaultIcon.class)
         };
     }
 
